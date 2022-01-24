@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Typography from '@mui/material/Typography';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,18 +7,30 @@ import FormControl from '@mui/material/FormControl';
 import useStyles from "./IntroStyle"
 import {Button} from "@mui/material";
 import DownloadIcon from '@mui/icons-material/Download';
+import PostSongUrl from "../../api/index"
+import {ToastContainer} from 'react-toastify';
 
 const Intro = () => {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-        amount: '',
-    });
+    const [linkUrl, setLinkUrl] = useState("");
+    const [songData, setSongData] = useState();
 
-    const handleChange = (prop) => (event) => {
-        setValues({...values, [prop]: event.target.value});
+    const handleChange = () => (event) => {
+        setLinkUrl(event.target.value)
+        console.log(linkUrl)
     };
+    const handleClick = async () => {
+        try {
+            const result = await PostSongUrl(linkUrl);
+            setSongData(result);
+            console.log(result)
+        } catch (err) {
+            console.log(err)
+        }
+    }
     return (
         <>
+            <ToastContainer/>
             <Typography className={classes.heading} variant={"h5"} gutterBottom component={"div"}>
                 Download Songs From Soundcloud :)
             </Typography>
@@ -27,7 +39,7 @@ const Intro = () => {
                     <InputLabel htmlFor="outlined-adornment-amount">link</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-amount"
-                        value={values.amount}
+                        value={linkUrl}
                         onChange={handleChange('amount')}
                         startAdornment={<InputAdornment position="start"> Paste your link ...</InputAdornment>}
                         label="link"
@@ -35,7 +47,7 @@ const Intro = () => {
                 </FormControl>
             </div>
             <div className={classes.margin}>
-                <Button className={classes.btn} variant="contained" endIcon={<DownloadIcon/>}>
+                <Button onClick={handleClick} className={classes.btn} variant="contained" endIcon={<DownloadIcon/>}>
                     Download Song
                 </Button>
             </div>
