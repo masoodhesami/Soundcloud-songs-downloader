@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import Typography from '@mui/material/Typography';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -8,12 +8,13 @@ import useStyles from "./IntroStyle"
 import {Button} from "@mui/material";
 import DownloadIcon from '@mui/icons-material/Download';
 import {PostSongUrl} from "../../api/index"
-import {ToastContainer} from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
+import {songContext} from "../../helpers/contexts"
 
 const Intro = () => {
     const classes = useStyles();
+    const {setNavigator, setSongData, songData} = useContext(songContext)
     const [linkUrl, setLinkUrl] = useState("");
-    const [songData, setSongData] = useState();
 
     const handleChange = () => (event) => {
         setLinkUrl(event.target.value)
@@ -22,7 +23,17 @@ const Intro = () => {
     const handleClick = async () => {
         try {
             const result = await PostSongUrl(linkUrl);
-            setSongData(result);
+            if (result.status === true) {
+                setSongData(result);
+                toast.success(result.msg);
+                setTimeout(() => {
+                    songData && setNavigator("result");
+                }, 2500)
+            }
+            else {
+                toast.error("Your url address is invalid , please try again")
+                setLinkUrl("");
+            }
             console.log(result)
         } catch (err) {
             console.log(err)
