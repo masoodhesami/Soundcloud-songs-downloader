@@ -28,6 +28,11 @@ const useStyles = makeStyles({
     footer:{
         color: '#888',
         paddingTop: "210px"
+    },
+    icon:{
+        marginRight:"7px",
+        position:"relative",
+        bottom : "-4px"
     }
 });
 export default useStyles;

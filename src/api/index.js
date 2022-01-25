@@ -1,8 +1,5 @@
 import axios from "axios";
 
-// const MainUrl = process.env.REACT_APP_PUBLIC_PATH;
-
-
 export const PostSongUrl = async (url) => {
     try {
         const result = await axios.request({

@@ -10,6 +10,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import {PostSongUrl} from "../../api/index"
 import {toast, ToastContainer} from 'react-toastify';
 import {songContext} from "../../helpers/contexts"
+import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 
 const Intro = () => {
     const classes = useStyles();
@@ -42,7 +43,8 @@ const Intro = () => {
         <>
             <ToastContainer/>
             <Typography className={classes.heading} variant={"h5"} gutterBottom component={"div"}>
-                Download Songs From Soundcloud :)
+                <GraphicEqIcon className={classes.icon}/>
+                Download Songs From Soundcloud
             </Typography>
             <div className={classes.flex}>
                 <FormControl className={classes.form} sx={{m: 1}}>
