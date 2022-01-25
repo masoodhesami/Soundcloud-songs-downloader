@@ -29,8 +29,7 @@ const Intro = () => {
                 setTimeout(() => {
                     songData && setNavigator("result");
                 }, 2500)
-            }
-            else {
+            } else {
                 toast.error("Your url address is invalid , please try again")
                 setLinkUrl("");
             }
