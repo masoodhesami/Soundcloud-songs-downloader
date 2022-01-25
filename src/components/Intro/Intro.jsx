@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import useStyles from "./IntroStyle"
 import {Button} from "@mui/material";
 import DownloadIcon from '@mui/icons-material/Download';
-import PostSongUrl from "../../api/index"
+import {PostSongUrl} from "../../api/index"
 import {ToastContainer} from 'react-toastify';
 
 const Intro = () => {
